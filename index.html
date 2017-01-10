@@ -1,0 +1,87 @@
+<!doctype html>
+<html ng-app="mainApp" ng-controller="mainCtrl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>Ticket Robots GUI</title>
+    <link rel="stylesheet" type="text/css" class="ui" href="semantic.min.css">
+    <style>
+        .sobra_sobreposta:hover {
+            transform: scale(1.11, 1.11) !important;
+        }
+    </style>
+</head>
+<body onload="onInit()">
+
+    <div class="ui segment">
+        <div class="ui pointing menu">
+            <div class="active item">
+                <h2>Ticket Robots GUI</h2>
+            </div>
+        </div>
+
+
+        <div class="ui segment">
+            <div class="ui four cards">
+                <div class="card sobra_sobreposta" ng-repeat="robo in robos">
+                    <div class="content">
+                        <div class="header">
+                            Robo #{{ robo.num }} <span ng-show="robo.concluido" style="float: right; color: green;"><i class="check icon"></i> Concluido</span>
+                        </div>
+                        <div class="meta">
+                            Atualmente {{ robo.porcento | number: 2 }}% completo.
+                        </div>
+                        <div class="description">
+                            <p><b>Latitude:</b> {{ robo.lat }}</p>
+                            <p><b>Longitude:</b> {{ robo.lon }}</p>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui two buttons">
+                            <div class="ui inverted green button" ng-class="{'disabled': robo.status == 1 }"><i class="play icon"></i> Iniciar</div>
+                            <div class="ui inverted red button" ng-class="{'disabled': robo.status == 0 }"><i class="stop icon"></i> Parar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui segment">
+            <div class="ui active teal progress" data-percent="0" id="progresso">
+                <div class="bar">
+                    <div class="progress"></div>
+                </div>
+                <div class="label">Número de Registros: {{ afiliados.length }}</div>
+            </div>
+        </div>
+
+
+        <div class="ui menu">
+            <div class="item">
+                <div class="ui labeled icon green button" ng-click="inicia()"><i class="power icon"></i> Iniciar Todos</div>
+            </div>
+            <div class="item">
+                <div class="ui labeled icon red button" ng-click="pausa()"><i class="stop icon"></i> Parar Todos</div>
+            </div>
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui labeled icon blue button" ng-click="salva()"><i class="save icon"></i> Salvar Estado Atual</div>
+                </div>
+                <div class="item">
+                    <div class="ui labeled icon teal button" ng-click="continua()"><i class="cloud download icon"></i> Carregar Estado Anterior</div>
+                </div>
+                <div class="item">
+                    <div class="ui labeled icon olive button" ng-click="exporta()"><i class="database icon"></i> Exportar Tudo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="angular.min.js"></script>
+<script src="jquery-3.1.1.min.js"></script>
+<script src="semantic.min.js"></script>
+<script src="local_db.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
